@@ -86,7 +86,7 @@ class Api extends UnionApiIterator
         $response = call_user_func_array([$this->param['http'],'post'],[self::URL,$data]);
         $this->status = $response->status;
         $content = $response->content;
-        if(isset($content['errorResponse'])){
+        if(isset($content['error_response']) || isset($content['errorResponse'])){
             throw new UnionException(json_encode($content));
         }
         array_walk_recursive ($content,function($value,$key)use($requestParams){
